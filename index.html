@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .selects {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            text-align: center;
+        }
+
+        .dark-mode {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Temperature Converter</h1>
+    <div class="container">
+        <div class="box">
+            <div class="selects">
+                <select name="inpSelect" id="inpSelect" onchange="selectNum()">
+                    <option selected>--Select Scale</option>
+                    <option value="c">Celsius</option>
+                    <option value="f">Fahrenheit</option>
+                    <option value="k">Kelvin</option>
+                </select>
+                <select name="opSelect" id="opSelect" onchange="selectNum()">
+                    <option selected>--Select Scale</option>
+                    <option value="c">Celsius</option>
+                    <option value="f">Fahrenheit</option>
+                    <option value="k">Kelvin</option>
+                </select>
+            </div>
+            <div class="inputs">
+                <form>
+                    <table>
+                        <tr>
+                            <td>Your Input: </td>
+                            <td><input type="text" name="input" id="input"></td>
+                        </tr>
+                        <tr>
+                            <td>Your Output: </td>
+                            <td id="outNum">0</td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="changeBtn">
+                <button class="btn" id="btn">Convert</button>
+                <button class="btn" id="chbtn" onclick="chmode()">Change Theme</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let scale1 = document.getElementById('inpSelect');
+        let scale2 = document.getElementById('opSelect');
+        let val = document.getElementById('input')
+        let btn = document.getElementById('btn');
+        let output = document.getElementById('output');
+        let result = 0;
+        let changeBtn = document.getElementById('chbtn');
+        function selectNum() {
+            btn.addEventListener('click', () => {
+                if (scale1.value == scale2.value) {
+                    result = parseFloat(val.value);
+                    outNum.innerHTML = result;
+                }
+                else if(scale1.value == 'c' && scale2.value == 'k') {
+                    result = parseFloat(val.value) + 273.15;
+                    outNum.innerHTML = result;
+                }
+                else if(scale1.value == 'k' && scale2.value == 'c') {
+                    result = parseFloat(val.value) - 273.15;
+                    outNum.innerHTML = result;
+                }
+                else if(scale1.value == 'c' && scale2.value == 'f') {
+                    result = (parseFloat(val.value)*1.8) + 32;
+                    outNum.innerHTML = result;
+                }
+                else if(scale1.value == 'f' && scale2.value == 'c') {
+                    result = (parseFloat(val.value) - 32)*(5/9);
+                    outNum.innerHTML = result;
+                }
+                else if(scale1.value == 'f' && scale2.value == 'k') {
+                    result = ((parseFloat(val.value) - 32)*(5/9)) + 273.15;
+                    outNum.innerHTML = result;
+                }
+                else if(scale1.value == 'k' && scale2.value == 'f') {
+                    result = ((parseFloat(val.value)-273)*1.8) + 32;
+                    outNum.innerHTML = result;
+                }
+                
+            });
+        }
+
+        function chmode() {
+            let element = document.body;
+            element.classList.toggle("dark-mode");
+            
+        }
+    </script>
+</body>
+
+</html>
